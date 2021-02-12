@@ -1,0 +1,11 @@
+html {
+    /* prevent padding from adding extra height and width*/
+    box-sizing: border-box;
+}
+
+body{
+    /* start at the edge of the page */
+    margin: 0;
+    /* a least full height of the viewport height, the screen */
+    min-height: 100vh;
+}
