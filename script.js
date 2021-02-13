@@ -2,12 +2,29 @@ const imageContainer = document.getElementById('image-container');
 const loader = document.getElementById('loader');
 
 let photosArray = [];
+let ready = false
+let imagesLoaded = 0
+let totalImages = 0
 
 // Unsplash API
-const count = 3;
-// const apiKey =  '4_5C-62Utc5h_Wxm6PWYCvvtULmeL2nhdTnXTz8b6d0';
-const apiKey = 'JHpsMZn8P6DwKybIINcnFzqM9r7m2j7aBvFoFiE2vbI'
+const count = 15;
+const apiKey =  '4_5C-62Utc5h_Wxm6PWYCvvtULmeL2nhdTnXTz8b6d0';
+// const apiKey = 'JHpsMZn8P6DwKybIINcnFzqM9r7m2j7aBvFoFiE2vbI'
+// const apiKey = 'jFgS8tteGD425f4oZfygQVaVnD6gt6GucN2yyz3xFek'
 const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
+
+
+// Check if all images were loaded
+function imageLoaded(){
+    imagesLoaded++
+    console.log(imagesLoaded)
+    if(imagesLoaded === totalImages){
+        ready = true
+        loader.hidden = true //Loader only happens once, once inital load
+        console.log('ready = ', ready)
+    }
+}
+
 
 
 //Helper Fucntion to Set Attributes on DOM Elements
@@ -18,9 +35,13 @@ function setAttributes(element, attributes){
 }
 
 
-
 //Create Elements For Links & Photos, Add to DOM
 function displayPhotos() {
+    imagesLoaded = 0 //reset imagesLoaded back to 0
+
+    totalImages = photosArray.length
+    console.log('total images = ', totalImages)
+
     // Run function for each object in photoArray
     photosArray.forEach(photo => {
         //Create <a> to link to Unsplash
@@ -43,6 +64,10 @@ function displayPhotos() {
             title: photo.alt_description
         })
 
+        //Event Listener, check when each is finished loading
+        img.addEventListener('load', imageLoaded)
+
+
         //Put <img> inside <a>, then put both inside imageContainer Element
         item.appendChild(img)
         imageContainer.appendChild(item)
@@ -63,6 +88,20 @@ async function getPhotos(){
         //Catch Error Here
     }
 }
+
+
+
+// Check to see if scrolling near bottom of page, Load more photos
+window.addEventListener('scroll', () => {
+    if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready){
+        ready = false //reset ready back to false 
+        getPhotos()
+        console.log('load more')
+    }
+})
+
+
+
 
 // On Load
 getPhotos()
