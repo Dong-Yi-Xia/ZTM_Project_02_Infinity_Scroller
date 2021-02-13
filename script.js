@@ -64,7 +64,7 @@ function displayPhotos() {
             title: photo.alt_description
         })
 
-        //Event Listener, check when each is finished loading
+        //Event Listener, check when each is finished loading, img is loaded in the photosArray.forEach
         img.addEventListener('load', imageLoaded)
 
 
@@ -95,7 +95,7 @@ async function getPhotos(){
 window.addEventListener('scroll', () => {
     if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready){
         ready = false //reset ready back to false 
-        getPhotos()
+        getPhotos() //run another fetch request
         console.log('load more')
     }
 })
