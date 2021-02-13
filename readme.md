@@ -20,7 +20,7 @@ https://picsum.photos/v2/list?page=1&limit=100 <br>
 
 DOM Events \
 https://www.w3schools.com/jsref/dom_obj_event.asp <br>
-load \
-scroll \
+load <br>
+scroll <br>
 
 ![alt text](image/Infinite+Scroll+Functionality.png)

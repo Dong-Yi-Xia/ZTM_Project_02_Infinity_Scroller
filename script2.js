@@ -9,7 +9,7 @@ let totalImages = 0
 
 //Using picsum.photos API
 let page = 1
-let apiUrl = `https://picsum.photos/v2/list?page=${page}`
+let apiUrl = `https://picsum.photos/v2/list?page=${page}&limit=5`
 
 
 // Check if all images were loaded
@@ -59,7 +59,6 @@ function displayPhotos() {
         //Event Listener, check when each is finished loading, img is loaded in the photosArray.forEach
         img.addEventListener('load', imageLoaded)
 
-
         //Put <img> inside <a>, then put both inside imageContainer Element
         item.appendChild(img)
         imageContainer.appendChild(item)
@@ -87,7 +86,7 @@ async function getPhotos(){
 window.addEventListener('scroll', () => {
     if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready){
         ready = false //reset ready back to false, imagesLoaded !== totalImages
-        page++
+        page++  // Now all following fetch will be 30 images default, updating the page and apiUrl
         apiUrl = `https://picsum.photos/v2/list?page=${page}`
         getPhotos() //run another fetch request
         console.log('load more')

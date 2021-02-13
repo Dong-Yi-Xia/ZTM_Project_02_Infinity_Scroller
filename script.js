@@ -7,11 +7,11 @@ let imagesLoaded = 0
 let totalImages = 0
 
 // Unsplash API
-const count = 15;
+let count = 5; //Increase Performance Time, fetch 5 images. 
 const apiKey =  '4_5C-62Utc5h_Wxm6PWYCvvtULmeL2nhdTnXTz8b6d0';
 // const apiKey = 'JHpsMZn8P6DwKybIINcnFzqM9r7m2j7aBvFoFiE2vbI'
 // const apiKey = 'jFgS8tteGD425f4oZfygQVaVnD6gt6GucN2yyz3xFek'
-const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
+let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
 
 // Check if all images were loaded
@@ -22,6 +22,8 @@ function imageLoaded(){
         ready = true
         loader.hidden = true //Loader only happens once, once inital load
         console.log('ready = ', ready)
+        count = 30 //Now all following fetch will be 30 images, updating the count and apiUrl
+        apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`
     }
 }
 
@@ -65,7 +67,6 @@ function displayPhotos() {
 
         //Event Listener, check when each is finished loading, img is loaded in the photosArray.forEach
         img.addEventListener('load', imageLoaded)
-
 
         //Put <img> inside <a>, then put both inside imageContainer Element
         item.appendChild(img)
