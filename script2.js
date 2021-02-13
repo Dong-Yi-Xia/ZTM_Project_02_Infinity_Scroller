@@ -6,12 +6,10 @@ let ready = false
 let imagesLoaded = 0
 let totalImages = 0
 
-// Unsplash API
-const count = 15;
-const apiKey =  '4_5C-62Utc5h_Wxm6PWYCvvtULmeL2nhdTnXTz8b6d0';
-// const apiKey = 'JHpsMZn8P6DwKybIINcnFzqM9r7m2j7aBvFoFiE2vbI'
-// const apiKey = 'jFgS8tteGD425f4oZfygQVaVnD6gt6GucN2yyz3xFek'
-const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
+
+//Using picsum.photos API
+let page = 1
+let apiUrl = `https://picsum.photos/v2/list?page=${page}`
 
 
 // Check if all images were loaded
@@ -45,22 +43,17 @@ function displayPhotos() {
     photosArray.forEach(photo => {
         //Create <a> to link to Unsplash
         const item = document.createElement('a')
-        // item.setAttribute('href', photo.links.html)
-        // item.setAttribute('target', '_blank')
         setAttributes(item, {
-            href: photo.links.html,
+            href: photo.url,
             target: '_blank'
         })
 
         //Create <img> for photo
         const img = document.createElement('img')
-        // img.setAttribute('src', photo.urls.regular)
-        // img.setAttribute('alt', photo.alt_description)
-        // img.setAttribute('title', photo.alt_description)
         setAttributes(img, {
-            src:  photo.urls.regular,
-            alt: photo.alt_description,
-            title: photo.alt_description
+            src:  photo.download_url,
+            alt: photo.author,
+            title: photo.author
         })
 
         //Event Listener, check when each is finished loading, img is loaded in the photosArray.forEach
@@ -93,7 +86,9 @@ async function getPhotos(){
 // Check to see if scrolling near bottom of page, Load more photos
 window.addEventListener('scroll', () => {
     if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready){
-        ready = false //reset ready back to false, imagesLoaded !== totalImages 
+        ready = false //reset ready back to false, imagesLoaded !== totalImages
+        page++
+        apiUrl = `https://picsum.photos/v2/list?page=${page}`
         getPhotos() //run another fetch request
         console.log('load more')
     }
