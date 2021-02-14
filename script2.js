@@ -8,7 +8,7 @@ let totalImages = 0
 
 
 //Using picsum.photos API
-let page = 1
+let page = Math.floor(Math.random() * 100) + 1 
 let apiUrl = `https://picsum.photos/v2/list?page=${page}&limit=5`
 
 
@@ -86,8 +86,8 @@ async function getPhotos(){
 window.addEventListener('scroll', () => {
     if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready){
         ready = false //reset ready back to false, imagesLoaded !== totalImages
-        page++  // Now all following fetch will be 30 images default, updating the page and apiUrl
-        apiUrl = `https://picsum.photos/v2/list?page=${page}`
+        page = Math.floor(Math.random() * 100) + 1 
+        apiUrl = `https://picsum.photos/v2/list?page=${page}&limit=15`
         getPhotos() //run another fetch request
         console.log('load more')
     }
