@@ -8,7 +8,8 @@ let totalImages = 0
 
 
 //Using picsum.photos API
-let page = Math.floor(Math.random() * 100) + 1 
+//let page = Math.floor(Math.random() * 101) random number between 0-100
+let page = Math.floor(Math.random() * 100) + 1  //random number between 1-100 
 let apiUrl = `https://picsum.photos/v2/list?page=${page}&limit=5`
 
 
@@ -86,8 +87,8 @@ async function getPhotos(){
 window.addEventListener('scroll', () => {
     if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready){
         ready = false //reset ready back to false, imagesLoaded !== totalImages
-        page = Math.floor(Math.random() * 100) + 1 
-        apiUrl = `https://picsum.photos/v2/list?page=${page}&limit=15`
+        page = Math.floor(Math.random() * 61)  //random number between 0-60
+        apiUrl = `https://picsum.photos/v2/list?page=${page}&limit=10`
         getPhotos() //run another fetch request
         console.log('load more')
     }
